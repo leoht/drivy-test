@@ -14,11 +14,15 @@ data['cars'].each do |info|
   cars[car_id] = Car.new(car_id, price_per_day: info['price_per_day'], price_per_km: info['price_per_km'])
 end
 
-# Compute rentals
+# Compute rentals with actions list
 data['rentals'].each do |info|
   car_id = info['car_id']
-  rental = Rental.new(info['id'], car: cars[car_id], start_date: info['start_date'], end_date: info['end_date'], distance: info['distance'])
-  rentals << rental.to_hash
+  rental = Rental.new(info['id'], car: cars[car_id], start_date: info['start_date'], end_date: info['end_date'], distance: info['distance'], deductible_reduction: info['deductible_reduction'])
+
+  rentals << {
+    :id => info['id'],
+    :actions => rental.actions.map!{ |a| a.to_hash }
+  }
 end
 
 # Save

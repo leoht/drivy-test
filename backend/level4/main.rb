@@ -17,7 +17,7 @@ end
 # Compute rentals
 data['rentals'].each do |info|
   car_id = info['car_id']
-  rental = Rental.new(info['id'], car: cars[car_id], start_date: info['start_date'], end_date: info['end_date'], distance: info['distance'])
+  rental = Rental.new(info['id'], car: cars[car_id], start_date: info['start_date'], end_date: info['end_date'], distance: info['distance'], deductible_reduction: info['deductible_reduction'])
   rentals << rental.to_hash
 end
 
